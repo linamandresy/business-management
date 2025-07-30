@@ -43,8 +43,8 @@ public class UserInitialiser implements CommandLineRunner{
         menu.setModule(ModuleApp.ACCOUNT_MANAGEMENT.getLabel());
         menu.setLink("/account");
         menu.setName("My Account");
-        menu.setRole("USER");
-
+        menu.addRoles(role);
+        menuRepository.save(menu);
 
     }
     
