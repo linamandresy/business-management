@@ -5,10 +5,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.lina.business.business_management.entities.Menu;
+import com.lina.business.business_management.entities.Feature;
 import com.lina.business.business_management.entities.Role;
 import com.lina.business.business_management.entities.User;
-import com.lina.business.business_management.entities.repositories.MenuRepository;
+import com.lina.business.business_management.entities.repositories.FeatureRepository;
 import com.lina.business.business_management.entities.repositories.RoleRepository;
 import com.lina.business.business_management.entities.repositories.UserRepository;
 import com.lina.business.business_management.utils.ModuleApp;
@@ -20,11 +20,11 @@ public class UserInitialiser implements CommandLineRunner{
     private PasswordEncoder encoder ;
     private final UserRepository userRepositories;
     private final RoleRepository roleRepository;
-    private final MenuRepository menuRepository;
-    public UserInitialiser(UserRepository userRepositories,RoleRepository roleRepository,MenuRepository menuRepository){
+    private final FeatureRepository featureRepository;
+    public UserInitialiser(UserRepository userRepositories,RoleRepository roleRepository,FeatureRepository featureRepository){
         this.userRepositories = userRepositories;
         this.roleRepository = roleRepository;
-        this.menuRepository = menuRepository;
+        this.featureRepository = featureRepository;
     }
     @Override
     public void run(String... args) throws Exception {
@@ -39,12 +39,12 @@ public class UserInitialiser implements CommandLineRunner{
         user.addRoles(role);
         userRepositories.save(user);
 
-        Menu menu = new Menu();
-        menu.setModule(ModuleApp.ACCOUNT_MANAGEMENT.getLabel());
-        menu.setLink("/account");
-        menu.setName("My Account");
-        menu.addRoles(role);
-        menuRepository.save(menu);
+        Feature feature = new Feature();
+        feature.setModule(ModuleApp.ACCOUNT_MANAGEMENT.getLabel());
+        feature.setLink("/account");
+        feature.setName("My Account");
+        feature.addRoles(role);
+        featureRepository.save(feature);
 
     }
     

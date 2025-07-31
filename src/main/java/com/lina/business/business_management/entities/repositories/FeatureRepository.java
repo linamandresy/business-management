@@ -2,8 +2,8 @@ package com.lina.business.business_management.entities.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.lina.business.business_management.entities.Menu;
+import com.lina.business.business_management.entities.Feature;
 
-public interface MenuRepository extends JpaRepository<Menu,Long>{
+public interface FeatureRepository extends JpaRepository<Feature,Long>{
     
 }
