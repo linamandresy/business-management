@@ -32,5 +32,25 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+    public Set<User> getUsers() {
+        return users;
+    }
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+    public void addUser(User user) {
+        if (users == null) {
+            users = new HashSet<>();
+        }
+        users.add(user);
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
     
 }

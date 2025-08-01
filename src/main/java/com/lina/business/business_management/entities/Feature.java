@@ -56,4 +56,18 @@ public class Feature {
     public void setRoles(Set<Role> roles){
         this.roles = roles;
     }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Feature{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", link='" + link + '\'' +
+                ", module='" + module + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

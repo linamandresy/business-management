@@ -1,5 +1,6 @@
 package com.lina.business.business_management.entities;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,6 +36,13 @@ public class User implements UserDetails{
     private String username;
     @Column(nullable = false)
     private String password;
+
+    private String firstName;
+
+    private String lastName;
+    private Date birthDate;
+    private Date hiringDate;
+    private Date leavingDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles= new HashSet<>();
@@ -79,6 +87,66 @@ public class User implements UserDetails{
     }
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public Date getBirthDate() {
+        return birthDate;
+    }
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+    public Date getHiringDate() {
+        return hiringDate;
+    }
+    public void setHiringDate(Date hiringDate) {
+        this.hiringDate = hiringDate;
+    }
+    public Date getLeavingDate() {
+        return leavingDate;
+    }
+    public void setLeavingDate(Date leavingDate) {
+        this.leavingDate = leavingDate;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", hiringDate=" + hiringDate +
+                ", leavingDate=" + leavingDate +
+                ", roles=" + roles +
+                '}';
     }
 
 }
