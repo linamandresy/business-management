@@ -1,4 +1,4 @@
-package com.lina.business.business_management.entities;
+package com.lina.business.business_management.entities.hr;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,8 @@
-package com.lina.business.business_management.entities;
+package com.lina.business.business_management.entities.hr;
 
 import java.sql.Date;
+
+import com.lina.business.business_management.entities.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

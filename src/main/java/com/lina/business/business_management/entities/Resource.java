@@ -1,21 +1,24 @@
 package com.lina.business.business_management.entities;
 
+import com.lina.business.business_management.utils.ResourceType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "resource")
+@Inheritance(strategy = jakarta.persistence.InheritanceType.SINGLE_TABLE)
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
-    private boolean consumable;
-    private boolean limited;
+    private ResourceType type;
 
     public Long getId() {
         return id;
@@ -41,19 +44,12 @@ public class Resource {
         this.description = description;
     }
 
-    public boolean isConsumable() {
-        return consumable;
+    public ResourceType getType() {
+        return type;
     }
 
-    public void setConsumable(boolean consumable) {
-        this.consumable = consumable;
-    }
-    
-    public boolean isLimited() {
-        return limited;
-    }
-    public void setLimited(boolean limited) {
-        this.limited = limited;
+    public void setType(ResourceType type) {
+        this.type = type;
     }
 
     @Override
@@ -62,8 +58,7 @@ public class Resource {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", consumable=" + consumable +
-                ", limited=" + limited +
+                ", type=" + type +
                 '}';
     }
 }
