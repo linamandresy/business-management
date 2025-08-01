@@ -1,7 +1,8 @@
-package com.lina.business.business_management.entities;
+package com.lina.business.business_management.entities.resources;
 
 import com.lina.business.business_management.utils.ResourceType;
 
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,8 +11,8 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "resource")
 @Inheritance(strategy = jakarta.persistence.InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "resource_type")
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,17 @@ public class Resource {
     private String name;
     private String description;
     private ResourceType type;
+    private double price;
+
+
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
