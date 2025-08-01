@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Room - GreenLeaf Hotel</title>
+  <link rel="stylesheet" href="website.css" />
+</head>
+<body>
+  <header class="website-header">
+    <div class="container">
+      <h1>GreenLeaf Hotel</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="rooms.html">Rooms</a>
+        <a href="booking.html" class="active">Book Now</a>
+        <a href="about.html">About Us</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <section class="container">
+    <h2>Book Your Stay</h2>
+    <form class="booking-form">
+      <label>Check-in
+        <input type="date" name="checkin" required>
+      </label>
+      <label>Check-out
+        <input type="date" name="checkout" required>
+      </label>
+      <label>Room Type
+        <select name="room" required>
+          <option value="">Select room type</option>
+          <option value="deluxe">Deluxe Room</option>
+          <option value="suite">Executive Suite</option>
+          <option value="family">Family Room</option>
+        </select>
+      </label>
+      <label>Guests
+        <input type="number" name="guests" min="1" max="8" value="2" required>
+      </label>
+      <!-- Payment Integration placeholder -->
+      <button type="submit" class="primary-btn">Confirm Booking</button>
+    </form>
+    <!-- Show booking confirmation/summary here after booking -->
+  </section>
+  <footer class="website-footer">
+    <div class="container">
+      <span>&copy; 2025 GreenLeaf Hotel. All Rights Reserved.</span>
+    </div>
+  </footer>
+</body>
+</html>

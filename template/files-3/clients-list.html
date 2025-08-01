@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clients - BizManager</title>
+  <link rel="stylesheet" href="admin-template.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <!-- ...Sidebar HTML as in your admin template... -->
+  </div>
+  <div class="main">
+    <header>
+      <div class="header-left"><h1>Clients</h1></div>
+      <div class="header-right">
+        <input type="search" placeholder="Search clients..." />
+        <a href="clients-create.html" class="primary-btn">Add Client</a>
+      </div>
+    </header>
+    <section class="main-content">
+      <div class="table-section">
+        <h2>All Clients</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th><th>Email</th><th>Phone</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acme Corp</td><td>contact@acme.com</td><td>+1 111 222 3333</td>
+              <td>
+                <a href="clients-edit.html?id=1" class="accent-btn">Edit</a>
+                <a href="#" class="danger-btn">Delete</a>
+              </td>
+            </tr>
+            <!-- More rows -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <footer>&copy; 2025 BizManager. All rights reserved.</footer>
+  </div>
+</body>
+</html>

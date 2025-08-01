@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Calendar - BizManager</title>
+  <link rel="stylesheet" href="admin-template.css" />
+  <link rel="stylesheet" href="calendar.css" />
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --calendar-main: #5bb49a;
+      --calendar-bg: #f4f7fa;
+      --calendar-light: #b9dbd6;
+      --calendar-dark: #1b3934;
+    }
+    .fc-theme-standard .fc-scrollgrid { border-radius: var(--radius);}
+    .fc-toolbar-title, .fc-col-header-cell-cushion, .fc-daygrid-day-number {
+      color: var(--calendar-dark);
+      font-weight: 600;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .fc-button, .fc-button-primary {
+      background: var(--calendar-main);
+      border: none;
+      transition: background .17s;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 7px;
+      font-family: 'Inter';
+    }
+    .fc-button-primary:not(:disabled):hover, .fc-button-active {
+      background: var(--calendar-dark);
+    }
+    .fc-event, .fc-event-main {
+      background: var(--calendar-main);
+      border-radius: 7px;
+      color: #fff;
+      border: none;
+      font-weight: 500;
+      font-family: 'Inter', Arial, sans-serif;
+      cursor: pointer;
+      transition: box-shadow .13s;
+    }
+    .fc-event:hover { box-shadow: 0 2px 12px rgba(91,180,154,.22);}
+    .fc .fc-day-today { background: var(--calendar-light) !important; }
+    .fc .fc-toolbar { gap: 10px; }
+    .fc .fc-toolbar .fc-button-group { gap: 4px; }
+    .fc .fc-view-harness { background: var(--calendar-bg); }
+    /* Drag placeholder */
+    .fc-event-dragging { opacity: 0.6; }
+    /* Popup modal */
+    .calendar-modal-bg {
+      position: fixed; inset:0; background: rgba(0,0,0,0.28); z-index: 9000; display: flex; align-items: center; justify-content: center;
+    }
+    .calendar-modal {
+      background: #fff; border-radius: 13px; box-shadow: 0 10px 40px 0 rgba(27,57,52,0.13);
+      padding: 32px 22px 22px 22px; min-width: 320px; max-width: 98vw;
+      display: flex; flex-direction: column; gap: 15px;
+      font-family: 'Inter', Arial, sans-serif;
+      position: relative;
+      animation: modalIn .22s;
+    }
+    @keyframes modalIn { 0% { opacity: 0; transform: scale(.97);} 100% { opacity: 1; transform: scale(1);}}
+    .calendar-modal h2 { font-size: 1.19rem; color: var(--calendar-main);}
+    .calendar-modal label { display: flex; flex-direction: column; gap: 2px; margin-bottom: 3px; font-size: 1rem;}
+    .calendar-modal input, .calendar-modal select, .calendar-modal textarea {
+      padding: 7px 10px; border-radius: 7px; border: 1.5px solid #d9dbe7; font-size: 1rem; background: var(--calendar-light);
+      outline: none; transition: border .2s; margin-bottom: 0;
+    }
+    .calendar-modal input:focus, .calendar-modal select:focus, .calendar-modal textarea:focus { border: 1.5px solid var(--calendar-main);}
+    .calendar-modal .modal-actions { display: flex; gap: 16px; margin-top: 10px;}
+    .calendar-modal .primary-btn, .calendar-modal .danger-btn {
+      padding: 8px 18px; border-radius: 7px; font-size: 1rem; font-weight: 500; border: none; cursor: pointer;
+    }
+    .calendar-modal .primary-btn { background: var(--calendar-main); color: #fff;}
+    .calendar-modal .danger-btn { background: var(--danger); color: #fff;}
+    .calendar-modal .close-modal {
+      position: absolute; right: 12px; top: 12px; background:none; border:none; font-size:1.3rem; color: var(--calendar-dark); cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <!-- ...Sidebar HTML as in your admin template... -->
+  </div>
+  <div class="main">
+    <header>
+      <div class="header-left">
+        <h1>Calendar</h1>
+      </div>
+      <div class="header-right">
+        <div class="profile-menu">
+          <img src="https://ui-avatars.com/api/?name=Admin" alt="Profile" />
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+    <section class="calendar-filters">
+      <form class="calendar-filter-form" id="calendarFilterForm">
+        <label>
+          <span>Room</span>
+          <select name="room" class="combobox" id="filterRoom">
+            <option value="">All Rooms</option>
+            <option value="101">Room 101</option>
+            <option value="102">Room 102</option>
+            <option value="103">Room 103</option>
+            <option value="104">Room 104</option>
+          </select>
+        </label>
+        <label>
+          <span>Resource</span>
+          <select name="resource" class="combobox" id="filterResource">
+            <option value="">All Resources</option>
+            <option value="projector">Projector</option>
+            <option value="conference">Conference Hall</option>
+            <option value="cleaning">Cleaning Crew</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select name="status" class="combobox" id="filterStatus">
+            <option value="">All</option>
+            <option value="booked">Booked</option>
+            <option value="available">Available</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
+        </label>
+        <label>
+          <span>View</span>
+          <select id="calendarView" class="combobox">
+            <option value="dayGridMonth">Month</option>
+            <option value="timeGridWeek">Week</option>
+            <option value="timeGridDay">Day</option>
+            <option value="multiMonthYear">Year</option>
+            <!-- FullCalendar Pro can use resourceTimeGridDay etc -->
+          </select>
+        </label>
+      </form>
+    </section>
+    <section class="calendar-section">
+      <div id="calendar"></div>
+    </section>
+    <footer>
+      &copy; 2025 BizManager. All rights reserved.
+    </footer>
+  </div>
+  <!-- Modal for event create/edit -->
+  <div class="calendar-modal-bg" id="calendarModalBg" style="display:none;">
+    <form class="calendar-modal" id="calendarModal" autocomplete="off">
+      <button type="button" class="close-modal" id="closeModalBtn">&times;</button>
+      <h2 id="modalTitle">Create Event</h2>
+      <label>
+        Title
+        <input type="text" id="eventTitle" required />
+      </label>
+      <label>
+        Room
+        <select id="eventRoom" required>
+          <option value="101">Room 101</option>
+          <option value="102">Room 102</option>
+          <option value="103">Room 103</option>
+          <option value="104">Room 104</option>
+        </select>
+      </label>
+      <label>
+        Resource
+        <select id="eventResource" required>
+          <option value="projector">Projector</option>
+          <option value="conference">Conference Hall</option>
+          <option value="cleaning">Cleaning Crew</option>
+        </select>
+      </label>
+      <label>
+        Status
+        <select id="eventStatus" required>
+          <option value="booked">Booked</option>
+          <option value="available">Available</option>
+          <option value="cleaning">Cleaning</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+      </label>
+      <label>
+        Start
+        <input type="datetime-local" id="eventStart" required />
+      </label>
+      <label>
+        End
+        <input type="datetime-local" id="eventEnd" required />
+      </label>
+      <label>
+        Notes
+        <textarea id="eventNotes" rows="2"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button type="submit" class="primary-btn" id="modalSaveBtn">Save</button>
+        <button type="button" class="danger-btn" id="modalDeleteBtn" style="display:none;">Delete</button>
+      </div>
+    </form>
+  </div>
+  <!-- FullCalendar JS (with all views/plugins) -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+  <script>
+    // Demo events
+    let calendarEvents = [
+      {
+        id: "1", title: "Room 101 - Projector", start: "2025-08-01T09:00", end: "2025-08-01T11:00",
+        extendedProps: { room: "101", resource: "projector", status: "booked", notes: "Business Meeting" }, color: "#5bb49a"
+      },
+      {
+        id: "2", title: "Room 102 - Cleaning", start: "2025-08-01T12:00", end: "2025-08-01T13:00",
+        extendedProps: { room: "102", resource: "cleaning", status: "cleaning", notes: "" }, color: "#379a7c"
+      },
+      {
+        id: "3", title: "Room 104 - Conference", start: "2025-08-02T10:00", end: "2025-08-02T15:00",
+        extendedProps: { room: "104", resource: "conference", status: "booked", notes: "Seminar" }, color: "#5bb49a"
+      },
+      {
+        id: "4", title: "Room 103 - Maintenance", start: "2025-08-03T08:00", end: "2025-08-03T12:00",
+        extendedProps: { room: "103", resource: "projector", status: "maintenance", notes: "Fix AC" }, color: "#f44336"
+      }
+    ];
+    let eventIdCounter = 10;
+    // Modal helpers
+    const modalBg = document.getElementById("calendarModalBg");
+    const modal = document.getElementById("calendarModal");
+    let currentEvent = null;
+    function openModal({ mode, event = null, startStr = null, endStr = null }) {
+      modal.reset();
+      document.getElementById("modalTitle").textContent = mode === "edit" ? "Edit Event" : "Create Event";
+      document.getElementById("modalDeleteBtn").style.display = mode === "edit" ? "" : "none";
+      if (mode === "edit" && event) {
+        document.getElementById("eventTitle").value = event.title;
+        document.getElementById("eventRoom").value = event.extendedProps.room;
+        document.getElementById("eventResource").value = event.extendedProps.resource;
+        document.getElementById("eventStatus").value = event.extendedProps.status;
+        document.getElementById("eventStart").value = event.startStr.slice(0,16);
+        document.getElementById("eventEnd").value = event.endStr.slice(0,16);
+        document.getElementById("eventNotes").value = event.extendedProps.notes || "";
+        currentEvent = event;
+      } else {
+        if(startStr) document.getElementById("eventStart").value = startStr.slice(0,16);
+        if(endStr) document.getElementById("eventEnd").value = endStr.slice(0,16);
+        currentEvent = null;
+      }
+      modalBg.style.display = "flex";
+    }
+    function closeModal() { modalBg.style.display = "none"; }
+
+    document.getElementById("closeModalBtn").onclick = closeModal;
+    modalBg.onclick = (e) => { if (e.target === modalBg) closeModal(); };
+
+    // FullCalendar setup
+    let calendar;
+    document.addEventListener('DOMContentLoaded', function() {
+      calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+        initialView: 'dayGridMonth',
+        headerToolbar: false, // Use our own controls
+        height: "auto",
+        selectable: true,
+        editable: true,
+        droppable: false,
+        dayMaxEvents: 3,
+        nowIndicator: true,
+        slotMinTime: "06:00:00",
+        slotMaxTime: "22:00:00",
+        slotDuration: "00:30:00",
+        views: {
+          multiMonthYear: { type: 'multiMonth', duration: { years: 1 }, multiMonthMaxColumns: 4 }
+        },
+        eventTimeFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
+        events: (info, successCallback, failureCallback) => {
+          // Filtering according to dropdowns
+          let room = document.getElementById('filterRoom').value;
+          let resource = document.getElementById('filterResource').value;
+          let status = document.getElementById('filterStatus').value;
+          let filtered = calendarEvents.filter(ev => {
+            let ok = true;
+            if(room && ev.extendedProps.room !== room) ok = false;
+            if(resource && ev.extendedProps.resource !== resource) ok = false;
+            if(status && ev.extendedProps.status !== status) ok = false;
+            return ok;
+          });
+          successCallback(filtered);
+        },
+        select: function(info) {
+          openModal({ mode: "create", startStr: info.startStr, endStr: info.endStr });
+        },
+        eventClick: function(info) {
+          openModal({ mode: "edit", event: info.event });
+        },
+        eventDrop: function(info) {
+          // Update event in data
+          let ev = calendarEvents.find(e => e.id === info.event.id);
+          ev.start = info.event.startStr;
+          ev.end = info.event.endStr;
+        },
+        eventResize: function(info) {
+          let ev = calendarEvents.find(e => e.id === info.event.id);
+          ev.start = info.event.startStr;
+          ev.end = info.event.endStr;
+        }
+      });
+      calendar.render();
+
+      // Filters
+      ['filterRoom','filterResource','filterStatus'].forEach(id => {
+        document.getElementById(id).onchange = () => calendar.refetchEvents();
+      });
+      // View selector
+      document.getElementById('calendarView').onchange = function() {
+        calendar.changeView(this.value);
+      };
+    });
+
+    // Modal submit (create/edit event)
+    modal.onsubmit = (e) => {
+      e.preventDefault();
+      const title = document.getElementById("eventTitle").value.trim();
+      const room = document.getElementById("eventRoom").value;
+      const resource = document.getElementById("eventResource").value;
+      const status = document.getElementById("eventStatus").value;
+      const start = document.getElementById("eventStart").value;
+      const end = document.getElementById("eventEnd").value;
+      const notes = document.getElementById("eventNotes").value.trim();
+      let color = "#5bb49a";
+      if(status === "cleaning") color = "#379a7c";
+      if(status === "maintenance") color = "#f44336";
+      if(status === "available") color = "#43a047";
+      if(currentEvent) {
+        // Edit existing
+        let ev = calendarEvents.find(e => e.id === currentEvent.id);
+        ev.title = title;
+        ev.start = start;
+        ev.end = end;
+        ev.extendedProps = { room, resource, status, notes };
+        ev.color = color;
+      } else {
+        // Create new
+        calendarEvents.push({
+          id: String(++eventIdCounter),
+          title,
+          start,
+          end,
+          extendedProps: { room, resource, status, notes },
+          color
+        });
+      }
+      calendar.refetchEvents();
+      closeModal();
+    };
+    document.getElementById("modalDeleteBtn").onclick = function() {
+      if(currentEvent) {
+        calendarEvents = calendarEvents.filter(e => e.id !== currentEvent.id);
+        calendar.refetchEvents();
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit User - BizManager Admin</title>
+  <link rel="stylesheet" href="admin-template.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <!-- Sidebar as in admin-dashboard.html -->
+    <div class="sidebar-header">
+      <h2>BizManager</h2>
+      <button class="collapse-btn" id="collapseBtn"><span class="icon-menu"></span></button>
+    </div>
+    <nav>
+      <div class="nav-group"><a class="root-menu" href="admin-dashboard.html"><span class="icon-dashboard"></span><span class="nav-text">Dashboard</span></a></div>
+      <div class="nav-group has-children">
+        <a class="root-menu" href="#" data-toggle="clients"><span class="icon-clients"></span><span class="nav-text">Clients</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-clients-list.html">All Clients</a>
+          <a href="admin-clients-create.html">Add New Client</a>
+        </div>
+      </div>
+      <div class="nav-group has-children">
+        <a class="root-menu" href="#" data-toggle="rooms"><span class="icon-products"></span><span class="nav-text">Rooms</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-rooms-list.html">All Rooms</a>
+          <a href="admin-rooms-create.html">Add Room</a>
+        </div>
+      </div>
+      <div class="nav-group has-children">
+        <a class="root-menu" href="#" data-toggle="bookings"><span class="icon-sales"></span><span class="nav-text">Bookings</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-bookings-list.html">All Bookings</a>
+          <a href="admin-bookings-create.html">Add Booking</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-calendar.html"><span class="icon-invoices"></span><span class="nav-text">Calendar</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-reports.html"><span class="icon-reports"></span><span class="nav-text">Reports</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu active" href="admin-users-list.html"><span class="icon-users"></span><span class="nav-text">Users</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-settings.html"><span class="icon-settings"></span><span class="nav-text">Settings</span></a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="nav-text">Admin</span>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+  <div class="main">
+    <header>
+      <div class="header-left"><h1>Edit User</h1></div>
+    </header>
+    <section class="main-content">
+      <form class="form-section" autocomplete="off">
+        <h2>User Information</h2>
+        <label>Name <input type="text" name="name" required class="input" value="linamandresy"/></label>
+        <label>Email <input type="email" name="email" required class="input" value="linamandresy@email.com"/></label>
+        <label>Role
+          <select name="role" required class="combobox">
+            <option value="Admin" selected>Admin</option>
+            <option value="Receptionist">Receptionist</option>
+            <option value="Cleaning">Cleaning</option>
+          </select>
+        </label>
+        <label>Status
+          <select name="status" required class="combobox">
+            <option value="Active" selected>Active</option>
+            <option value="Pending">Pending</option>
+            <option value="Disabled">Disabled</option>
+          </select>
+        </label>
+        <label>Password <input type="password" name="password" class="input"/></label>
+        <button class="primary-btn" type="submit">Update User</button>
+      </form>
+    </section>
+    <footer>&copy; 2025 BizManager. All rights reserved.</footer>
+  </div>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const collapseBtn = document.getElementById('collapseBtn');
+    collapseBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('collapsed');
+    });
+    document.querySelectorAll('.nav-group.has-children > .root-menu').forEach(menu => {
+      menu.addEventListener('click', function(e) {
+        e.preventDefault();
+        const group = this.closest('.nav-group');
+        group.classList.toggle('open');
+        document.querySelectorAll('.nav-group.has-children').forEach(g => {
+          if(g !== group) g.classList.remove('open');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

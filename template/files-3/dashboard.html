@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - BizManager</title>
+  <link rel="stylesheet" href="admin-template.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <!-- ...Sidebar HTML as in your admin template... -->
+  </div>
+  <div class="main" id="mainApp">
+    <header>
+      <div class="header-left"><h1>Dashboard</h1></div>
+      <div class="header-right">
+        <input type="search" placeholder="Search..." />
+        <div class="profile-menu">
+          <img src="https://ui-avatars.com/api/?name=Admin" alt="Profile" />
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+    <section class="dashboard-grid">
+      <!-- Top Stats Cards -->
+      <div class="stat-card">
+        <span class="stat-label">Total Revenue</span>
+        <span class="stat-value">$24,800</span>
+        <span class="stat-trend up">+12%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">New Clients</span>
+        <span class="stat-value">34</span>
+        <span class="stat-trend up">+8%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Pending Invoices</span>
+        <span class="stat-value">7</span>
+        <span class="stat-trend down">-2%</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Support Tickets</span>
+        <span class="stat-value">15</span>
+        <span class="stat-trend up">+5%</span>
+      </div>
+      <!-- Revenue Chart -->
+      <div class="panel wide-panel">
+        <div class="panel-header">
+          <span class="panel-title">Revenue Overview</span>
+        </div>
+        <canvas id="revenueChart" height="80"></canvas>
+      </div>
+      <!-- Clients Growth Chart -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Client Growth</span>
+        </div>
+        <canvas id="clientsChart" height="120"></canvas>
+      </div>
+      <!-- Top Products Pie Chart -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Top Products</span>
+        </div>
+        <canvas id="productsChart" height="120"></canvas>
+      </div>
+      <!-- Recent Activity Table -->
+      <div class="panel wide-panel">
+        <div class="panel-header">
+          <span class="panel-title">Recent Activity</span>
+        </div>
+        <div class="table-responsive">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Action</th>
+                <th>User</th>
+                <th>Module</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/08/2025</td>
+                <td>Created Invoice #1025</td>
+                <td>linamandresy</td>
+                <td>Invoices</td>
+                <td><span class="badge success">Success</span></td>
+              </tr>
+              <tr>
+                <td>01/08/2025</td>
+                <td>Added Client (Gamma LLC)</td>
+                <td>John Doe</td>
+                <td>Clients</td>
+                <td><span class="badge success">Success</span></td>
+              </tr>
+              <tr>
+                <td>31/07/2025</td>
+                <td>Payment Received</td>
+                <td>linamandresy</td>
+                <td>Finance</td>
+                <td><span class="badge success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>31/07/2025</td>
+                <td>Invoice #1024 Overdue</td>
+                <td>John Doe</td>
+                <td>Invoices</td>
+                <td><span class="badge danger">Overdue</span></td>
+              </tr>
+              <tr>
+                <td>30/07/2025</td>
+                <td>New Sale (Delta Ltd)</td>
+                <td>Jane Smith</td>
+                <td>Sales</td>
+                <td><span class="badge success">Success</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Notifications Panel -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Notifications</span>
+        </div>
+        <ul class="notifications-list">
+          <li><span class="dot success"></span> Payment received from Acme Corp.</li>
+          <li><span class="dot warning"></span> Invoice #1024 is pending.</li>
+          <li><span class="dot danger"></span> Invoice #1017 is overdue!</li>
+          <li><span class="dot"></span> New client registered: Gamma LLC.</li>
+        </ul>
+      </div>
+    </section>
+    <footer>
+      &copy; 2025 BizManager. All rights reserved.
+    </footer>
+  </div>
+  <script>
+    // Revenue Chart
+    new Chart(document.getElementById('revenueChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        datasets: [{
+          label: 'Revenue',
+          data: [3200, 3900, 4200, 4700, 5200, 5700, 6100, 6600],
+          fill: true,
+          backgroundColor: 'rgba(91,180,154,0.07)',
+          borderColor: '#5bb49a',
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#5bb49a'
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#e3e8ee' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+    // Clients Growth Chart
+    new Chart(document.getElementById('clientsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        datasets: [{
+          label: 'Clients',
+          data: [10, 12, 16, 18, 21, 34],
+          backgroundColor: '#5bb49a',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: '#e3e8ee' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+    // Top Products Pie Chart
+    new Chart(document.getElementById('productsChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Annual Plan', 'Consulting', 'Add-on', 'Basic Plan'],
+        datasets: [{
+          data: [45, 21, 13, 21],
+          backgroundColor: [
+            '#5bb49a',
+            '#b9dbd6',
+            '#379a7c',
+            '#1b3934'
+          ],
+          borderWidth: 1,
+        }]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom', labels: { color: '#1b3934' } } }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bookings - BizManager Admin</title>
+  <link rel="stylesheet" href="admin-template.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <!-- Sidebar as in admin-dashboard.html -->
+    <div class="sidebar-header">
+      <h2>BizManager</h2>
+      <button class="collapse-btn" id="collapseBtn"><span class="icon-menu"></span></button>
+    </div>
+    <nav>
+      <div class="nav-group"><a class="root-menu" href="admin-dashboard.html"><span class="icon-dashboard"></span><span class="nav-text">Dashboard</span></a></div>
+      <div class="nav-group has-children">
+        <a class="root-menu" href="#" data-toggle="clients"><span class="icon-clients"></span><span class="nav-text">Clients</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-clients-list.html">All Clients</a>
+          <a href="admin-clients-create.html">Add New Client</a>
+        </div>
+      </div>
+      <div class="nav-group has-children">
+        <a class="root-menu" href="#" data-toggle="rooms"><span class="icon-products"></span><span class="nav-text">Rooms</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-rooms-list.html">All Rooms</a>
+          <a href="admin-rooms-create.html">Add Room</a>
+        </div>
+      </div>
+      <div class="nav-group has-children open">
+        <a class="root-menu active" href="#" data-toggle="bookings"><span class="icon-sales"></span><span class="nav-text">Bookings</span><span class="arrow"></span></a>
+        <div class="submenu">
+          <a href="admin-bookings-list.html" class="active">All Bookings</a>
+          <a href="admin-bookings-create.html">Add Booking</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-calendar.html"><span class="icon-invoices"></span><span class="nav-text">Calendar</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-reports.html"><span class="icon-reports"></span><span class="nav-text">Reports</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-users-list.html"><span class="icon-users"></span><span class="nav-text">Users</span></a>
+      </div>
+      <div class="nav-group">
+        <a class="root-menu" href="admin-settings.html"><span class="icon-settings"></span><span class="nav-text">Settings</span></a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="nav-text">Admin</span>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+  <div class="main">
+    <header>
+      <div class="header-left"><h1>Bookings</h1></div>
+      <div class="header-right">
+        <input type="search" placeholder="Search bookings..." />
+        <a href="admin-bookings-create.html" class="primary-btn">Add Booking</a>
+      </div>
+    </header>
+    <section class="main-content">
+      <div class="table-section">
+        <h2>All Bookings</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Client</th><th>Room</th><th>Check-in</th><th>Check-out</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1025</td><td>Acme Corp</td><td>101 (Deluxe)</td><td>2025-08-01</td><td>2025-08-03</td><td><span class="badge success">Confirmed</span></td>
+              <td>
+                <a href="admin-bookings-edit.html?id=1025" class="accent-btn">Edit</a>
+                <a href="#" class="danger-btn">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>1024</td><td>Gamma LLC</td><td>202 (Suite)</td><td>2025-08-02</td><td>2025-08-05</td><td><span class="badge warning">Pending</span></td>
+              <td>
+                <a href="admin-bookings-edit.html?id=1024" class="accent-btn">Edit</a>
+                <a href="#" class="danger-btn">Delete</a>
+              </td>
+            </tr>
+            <tr>
+              <td>1023</td><td>John Doe</td><td>303 (Family)</td><td>2025-08-04</td><td>2025-08-08</td><td><span class="badge danger">Cancelled</span></td>
+              <td>
+                <a href="admin-bookings-edit.html?id=1023" class="accent-btn">Edit</a>
+                <a href="#" class="danger-btn">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <footer>
+      &copy; 2025 BizManager. All rights reserved.
+    </footer>
+  </div>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const collapseBtn = document.getElementById('collapseBtn');
+    collapseBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('collapsed');
+    });
+    document.querySelectorAll('.nav-group.has-children > .root-menu').forEach(menu => {
+      menu.addEventListener('click', function(e) {
+        e.preventDefault();
+        const group = this.closest('.nav-group');
+        group.classList.toggle('open');
+        document.querySelectorAll('.nav-group.has-children').forEach(g => {
+          if(g !== group) g.classList.remove('open');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
