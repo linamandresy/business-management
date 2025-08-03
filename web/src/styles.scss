@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #5bb49a;
+  --primary-dark: #1b3934;
+  --primary-light: #b9dbd6;
+  --accent: #b9dbd6;
+  --danger: #f44336;
+  --warning: #ff9800;
+  --success: #43a047;
+  --bg: #f4f7fa;
+  --sidebar: #1b3934;
+  --sidebar-active: #5bb49a;
+  --sidebar-light: #b9dbd6;
+  --sidebar-text: #e3e8ee;
+  --sidebar-hover: #73c6ad;
+  --submenu-bg: #23463d;
+  --submenu-active: #379a7c;
+  --text: #222;
+  --muted: #7c7c7c;
+  --radius: 9px;
+  --shadow: 0 2px 8px rgba(91, 180, 154, 0.10);
+  --badge-success: #5bb49a;
+  --badge-warning: #ffb347;
+  --badge-danger: #e57373;
+}
