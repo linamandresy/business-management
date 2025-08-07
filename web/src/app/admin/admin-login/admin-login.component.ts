@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../environments/environments';
 
 @Component({
   selector: 'app-admin-login',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './admin-login.component.scss'
 })
 export class AdminLoginComponent {
-
+  appName:string = environment.appName;
 }

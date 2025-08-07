@@ -23,3 +23,16 @@
   --badge-warning: #ffb347;
   --badge-danger: #e57373;
 }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+//   display: flex;
+}

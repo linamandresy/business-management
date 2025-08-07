@@ -1,1 +1,154 @@
-<p>dashboard works!</p>
+    <section class="cards">
+      <div class="card">
+        <div class="card-title">Total Revenue</div>
+        <div class="card-value">$12,500</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Active Clients</div>
+        <div class="card-value">83</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pending Invoices</div>
+        <div class="card-value">5</div>
+      </div>
+      <div class="card">
+        <div class="card-title">New Messages</div>
+        <div class="card-value">12</div>
+      </div>
+    </section>
+    <section class="main-content">
+      <div class="table-section">
+        <h2>Recent Sales</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Client</th>
+              <th>Product</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01 Aug 2025</td>
+              <td>Acme Corp</td>
+              <td>Annual Plan</td>
+              <td>$1200</td>
+              <td><span class="status success">Paid</span></td>
+            </tr>
+            <tr>
+              <td>31 Jul 2025</td>
+              <td>Beta LLC</td>
+              <td>Add-on Module</td>
+              <td>$450</td>
+              <td><span class="status warning">Pending</span></td>
+            </tr>
+            <tr>
+              <td>30 Jul 2025</td>
+              <td>Delta Ltd</td>
+              <td>Consulting</td>
+              <td>$700</td>
+              <td><span class="status success">Paid</span></td>
+            </tr>
+            <tr>
+              <td>30 Jul 2025</td>
+              <td>Omega Inc</td>
+              <td>Basic Plan</td>
+              <td>$300</td>
+              <td><span class="status danger">Overdue</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="overview-section">
+        <h2>Quick Actions</h2>
+        <div class="quick-actions">
+          <button class="primary-btn">Add Client</button>
+          <button class="primary-btn">New Invoice</button>
+          <button class="primary-btn">Generate Report</button>
+        </div>
+        <h2>Notifications</h2>
+        <ul class="notifications">
+          <li><span class="dot success"></span> Payment received from Acme Corp.</li>
+          <li><span class="dot warning"></span> Invoice #1024 is pending.</li>
+          <li><span class="dot danger"></span> Invoice #1017 is overdue!</li>
+          <li><span class="dot"></span> New client registered: Gamma LLC.</li>
+        </ul>
+      </div>
+    </section>
+    <!-- COMPONENTS SECTION -->
+    <section class="components-section">
+      <h2>UI Components</h2>
+      <div class="component-grid">
+        <div class="component-block">
+          <h3>Button</h3>
+          <button class="primary-btn">Primary Button</button>
+          <button class="accent-btn">Accent Button</button>
+          <button class="danger-btn">Danger Button</button>
+          <button class="outline-btn">Outline Button</button>
+        </div>
+        <div class="component-block">
+          <h3>Input</h3>
+          <input type="text" placeholder="Text input" class="input" />
+          <input type="text" placeholder="Email input" class="input" />
+          <input type="password" placeholder="Password input" class="input" />
+        </div>
+        <div class="component-block">
+          <h3>Combobox (Select)</h3>
+          <select class="combobox">
+            <option>Select a client</option>
+            <option>Acme Corp</option>
+            <option>Beta LLC</option>
+            <option>Delta Ltd</option>
+          </select>
+        </div>
+        <div class="component-block">
+          <h3>Card</h3>
+          <div class="card demo-card">
+            <div class="card-title">Demo Card</div>
+            <div class="card-value">Card Content</div>
+          </div>
+        </div>
+        <div class="component-block">
+          <h3>Checkbox & Radio</h3>
+          <label class="checkbox-label">
+            <input type="checkbox" checked />
+            Checkbox checked
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" />
+            Checkbox
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="demo-radio" checked />
+            Radio checked
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="demo-radio" />
+            Radio
+          </label>
+        </div>
+        <div class="component-block">
+          <h3>Switch</h3>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="component-block">
+          <h3>Textarea</h3>
+          <textarea rows="3" placeholder="Your message..." class="input"></textarea>
+        </div>
+        <div class="component-block">
+          <h3>Badge</h3>
+          <span class="badge success">Success</span>
+          <span class="badge warning">Warning</span>
+          <span class="badge danger">Danger</span>
+        </div>
+        <div class="component-block">
+          <h3>Loader</h3>
+          <div class="loader"></div>
+        </div>
+      </div>
+    </section>

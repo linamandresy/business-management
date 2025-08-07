@@ -17,7 +17,7 @@ export const routes: Routes = [{
     children:[{
         path:'dashboard',
         component:DashboardComponent,
-        canActivate:[adminAuthGuard]
+        // canActivate:[adminAuthGuard]
     },{
         path: '**',
         redirectTo: '/admin/dashboard'
